@@ -1,7 +1,7 @@
-package com.example.sweater;
+package com.example.diplom;
 
-import com.example.sweater.domain.Message;
-import com.example.sweater.repos.MessageRepo;
+import com.example.diplom.domain.Message;
+import com.example.diplom.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
