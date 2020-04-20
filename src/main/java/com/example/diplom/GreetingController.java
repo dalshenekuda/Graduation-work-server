@@ -34,8 +34,8 @@ public class GreetingController {
     }
 
     @PostMapping
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
+    public String add(@RequestParam String text, @RequestParam String tag,@RequestParam String qr, Map<String, Object> model) {
+        Message message = new Message(text, tag, qr);
 
         messageRepo.save(message);
 
@@ -60,4 +60,5 @@ public class GreetingController {
 
         return "main";
     }
+
 }

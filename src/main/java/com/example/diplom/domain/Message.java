@@ -10,31 +10,30 @@ public class Message {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-
     private String text;
     private String tag;
-    private String QR;
+    private String qr;
 
     public Message() {
     }
 
-    public Message(String text, String tag) {
+    public Message(String text, String tag, String qr) {
         this.text = text;
         this.tag = tag;
+        this.qr = qr;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 
     public String getText() {
         return text;
+    }
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -42,8 +41,14 @@ public class Message {
     public String getTag() {
         return tag;
     }
-
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getQr() {
+        return qr;
+    }
+    public void setQr(String qr) {
+        this.qr = qr;
     }
 }

@@ -5,6 +5,9 @@
         <form method="post">
             <input type="text" name="text" placeholder="Введите сообщение" />
             <input type="text" name="tag" placeholder="Тэг">
+            <input type="text" name="qr" placeholder="qr">
+
+
             <button type="submit">Добавить</button>
         </form>
     </div>
@@ -15,6 +18,12 @@
         <b>{{id}}</b>
         <span>{{text}}</span>
         <i>{{tag}}</i>
+
+      
+        <i>{{qr}}</i>
+
+
+
     </div>
     {{/messages}}
 </body>
