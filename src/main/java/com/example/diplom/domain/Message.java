@@ -10,25 +10,32 @@ public class Message {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private String text;
+    private String name_pr;
     private String tag;
     private String qr;
+    private Integer ideal;
+    private Integer real;
+
+
+
 
     public Message() {
     }
 
-    public Message(String text, String tag, String qr) {
-        this.text = text;
+    public Message(String name_pr, String tag, String qr,Integer ideal,Integer real) {
+        this.name_pr = name_pr;
         this.tag = tag;
         this.qr = qr;
+        this.ideal = ideal;
+        this.real = real;
     }
 
 
-    public String getText() {
-        return text;
+    public String getName_pr() {
+        return name_pr;
     }
-    public void setText(String text) {
-        this.text = text;
+    public void setName_pr(String name_pr) {
+        this.name_pr = name_pr;
     }
 
     public Integer getId() {
@@ -50,5 +57,19 @@ public class Message {
     }
     public void setQr(String qr) {
         this.qr = qr;
+    }
+
+    public Integer getIdeal() {
+        return ideal;
+    }
+    public void setIdeal(Integer ideal) {
+        this.ideal = ideal;
+    }
+
+    public Integer getReal() {
+        return real;
+    }
+    public void setReal(Integer real) {
+        this.real = real;
     }
 }
