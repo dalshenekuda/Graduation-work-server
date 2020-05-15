@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MessageRepo extends CrudRepository<Message, Long> {
     List<Message> findByTag(String qr);
-    List<Message> findByQr(String qr);
+    Message findByQr(String qr);
     boolean existsByQr(String qr);
-    Message
+
 }

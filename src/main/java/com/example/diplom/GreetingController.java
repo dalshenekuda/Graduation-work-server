@@ -66,7 +66,8 @@ public class GreetingController {
     //check = qr
     @PostMapping("check")
     public String check(@RequestParam String check, Map<String, Object> model) {
-        Iterable<Message> messages;
+
+
         //check = qr
         if (check != null && !check.isEmpty()) {
 
@@ -74,14 +75,19 @@ public class GreetingController {
             //messages = messageRepo.findByQr(check);
             if(bool)
             {
-              messages.
+                Message message;
+                message = messageRepo.findByQr(check);
+                message.setReal(90);
+                messageRepo.save(message);
             }
-
-
-        } else {
-            messages = messageRepo.findAll();
+            else {
+                //новое сообщение с онли кодом
+                Message message = new Message("unknown", "unknown", check,1,1);
+                messageRepo.save(message);
+            }
         }
 
+        Iterable<Message> messages = messageRepo.findAll();
         model.put("messages", messages);
 
         return "main";
