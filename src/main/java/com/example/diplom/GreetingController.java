@@ -10,88 +10,81 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@Controller
-public class GreetingController {
-    @Autowired
-    private MessageRepo messageRepo;
+    @Controller
+    public class GreetingController {
+        @Autowired
+        private MessageRepo messageRepo;
 
-    @GetMapping("/greeting")
-    public String greeting(
-            @RequestParam(name="name", required=false, defaultValue="World") String name,
-            Map<String, Object> model
-    ) {
-        model.put("name", name);
-        return "greeting";
-    }
-
-
-    @GetMapping
-    public String main(Map<String, Object> model) {
-        Iterable<Message> messages = messageRepo.findAll();
-
-        model.put("messages", messages);
-
-        return "main";
-    }
-
-    @PostMapping
-    public String add(@RequestParam String name_pr, @RequestParam String tag,@RequestParam String qr,@RequestParam Integer ideal, @RequestParam Integer real,  Map<String, Object> model) {
-        Message message = new Message(name_pr, tag, qr,ideal,real);
-
-        messageRepo.save(message);
-
-        Iterable<Message> messages = messageRepo.findAll();
-
-        model.put("messages", messages);
-
-        return "main";
-    }
-
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-
-        if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
+        @GetMapping("/greeting")
+        public String greeting(
+                @RequestParam(name="name", required=false, defaultValue="World") String name,
+                Map<String, Object> model
+        ) {
+            model.put("name", name);
+            return "greeting";
         }
 
-        model.put("messages", messages);
-
-        return "main";
-    }
-
-    //check = qr
-    @PostMapping("check")
-    public String check(@RequestParam String check, Map<String, Object> model) {
 
 
-        //check = qr
-        if (check != null && !check.isEmpty()) {
+        @GetMapping
+        public String main(Map<String, Object> model) {
+            Iterable<Message> messages = messageRepo.findAll();
 
-            boolean bool = messageRepo.existsByQr(check);
-            //messages = messageRepo.findByQr(check);
-            if(bool)
-            {
-                Message message;
-                message = messageRepo.findByQr(check);
-                message.setReal(90);
-                messageRepo.save(message);
-            }
-            else {
-                //новое сообщение с онли кодом
-                Message message = new Message("unknown", "unknown", check,1,1);
-                messageRepo.save(message);
-            }
+            model.put("messages", messages);
+
+            return "fltr";
         }
 
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
 
-        return "main";
-    }
+
+        @PostMapping
+        public String add(@RequestParam String name_pr, @RequestParam String tag,@RequestParam String qr,
+                          @RequestParam Integer ideal, @RequestParam Integer real,  Map<String, Object> model) {
+            Message message = new Message(name_pr, tag, qr,ideal,real);
+
+            messageRepo.save(message);
+
+            Iterable<Message> messages = messageRepo.findAll();
+
+            model.put("messages", messages);
+
+            return "main";
+        }
+
+
+        @PostMapping("filter")
+        public String filter(@RequestParam Integer filter, Map<String, Object> model) {
+            Iterable<Message> messages;
+                if(filter!=null) {
+                    messages = messageRepo.findByReal(filter);
+                    model.put("messages", messages);
+                }
+                return "fltr";
+        }
+
+
+        @PostMapping("check")
+        public void check(@RequestParam String check) {
+            //check = qr
+            if (check != null && !check.isEmpty()) {
+
+                boolean bool = messageRepo.existsByQr(check);
+
+                if(bool)
+                {
+                    Message message;
+                    message = messageRepo.findByQr(check);
+                    message.setReal(1);
+                    messageRepo.save(message);
+                }
+                else {
+
+                    Message message = new Message("unknown", "unknown", check,1,1);
+                    messageRepo.save(message);
+                }
+            }
+
+        }
 
 }
 

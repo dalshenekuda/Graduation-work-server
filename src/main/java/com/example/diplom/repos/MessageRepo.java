@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface MessageRepo extends CrudRepository<Message, Long> {
-    List<Message> findByTag(String qr);
+    List<Message> findByReal(Integer real);
     Message findByQr(String qr);
     boolean existsByQr(String qr);
 
